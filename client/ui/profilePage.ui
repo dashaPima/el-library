@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>482</width>
+    <width>335</width>
     <height>453</height>
    </rect>
   </property>
@@ -20,7 +20,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>0</x>
       <y>10</y>
       <width>351</width>
       <height>61</height>
@@ -30,8 +30,7 @@
      <font>
       <family>Comic Sans MS</family>
       <pointsize>16</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -44,9 +43,9 @@
    <widget class="QPushButton" name="applyFilters">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>350</y>
-      <width>351</width>
+      <x>40</x>
+      <y>340</y>
+      <width>231</width>
       <height>41</height>
      </rect>
     </property>
@@ -68,9 +67,9 @@ border-radius:10%</string>
    <widget class="QLineEdit" name="email">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>40</x>
       <y>140</y>
-      <width>351</width>
+      <width>231</width>
       <height>41</height>
      </rect>
     </property>
@@ -91,9 +90,9 @@ border-radius:10%</string>
    <widget class="QLineEdit" name="password">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>240</y>
-      <width>351</width>
+      <x>40</x>
+      <y>260</y>
+      <width>231</width>
       <height>41</height>
      </rect>
     </property>
@@ -114,7 +113,7 @@ border-radius:10%</string>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>0</x>
       <y>80</y>
       <width>141</width>
       <height>51</height>
@@ -124,7 +123,6 @@ border-radius:10%</string>
      <font>
       <family>Comic Sans MS</family>
       <pointsize>16</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -138,8 +136,8 @@ border-radius:10%</string>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>180</y>
+      <x>10</x>
+      <y>190</y>
       <width>141</width>
       <height>51</height>
      </rect>
@@ -148,7 +146,6 @@ border-radius:10%</string>
      <font>
       <family>Comic Sans MS</family>
       <pointsize>16</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -165,8 +162,8 @@ border-radius:10%</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>482</width>
-     <height>26</height>
+     <width>335</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

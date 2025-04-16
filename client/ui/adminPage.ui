@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>785</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -148,16 +148,15 @@ border-radius:10%;</string>
     <property name="geometry">
      <rect>
       <x>620</x>
-      <y>70</y>
+      <y>60</y>
       <width>171</width>
-      <height>20</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial</family>
       <pointsize>10</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -221,16 +220,15 @@ border-radius:10%;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>70</y>
-      <width>201</width>
-      <height>20</height>
+      <y>60</y>
+      <width>151</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial</family>
       <pointsize>10</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -293,27 +291,30 @@ border-radius:10%;</string>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>10</x>
       <y>0</y>
-      <width>131</width>
+      <width>151</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Rage Italic</family>
-      <pointsize>26</pointsize>
+      <pointsize>27</pointsize>
      </font>
     </property>
     <property name="text">
      <string>Library</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="btnExit">
     <property name="geometry">
      <rect>
       <x>640</x>
-      <y>497</y>
+      <y>450</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -342,7 +343,7 @@ color:white;</string>
       <x>170</x>
       <y>90</y>
       <width>441</width>
-      <height>451</height>
+      <height>401</height>
      </rect>
     </property>
    </widget>
@@ -352,8 +353,8 @@ color:white;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>26</height>
+     <width>785</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

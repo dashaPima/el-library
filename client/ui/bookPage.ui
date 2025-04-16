@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>733</width>
     <height>600</height>
    </rect>
   </property>
@@ -29,17 +29,20 @@
     <property name="font">
      <font>
       <family>Rage Italic</family>
-      <pointsize>26</pointsize>
+      <pointsize>30</pointsize>
      </font>
     </property>
     <property name="text">
      <string>Library</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QPushButton" name="btnExit">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>580</x>
       <y>500</y>
       <width>131</width>
       <height>41</height>
@@ -66,7 +69,7 @@ color:white;</string>
    <widget class="QPushButton" name="addToFavorite">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>220</x>
       <y>500</y>
       <width>131</width>
       <height>41</height>
@@ -189,7 +192,7 @@ border-radius:10%;</string>
      <rect>
       <x>360</x>
       <y>370</y>
-      <width>271</width>
+      <width>351</width>
       <height>61</height>
      </rect>
     </property>
@@ -210,7 +213,7 @@ border-radius:10%</string>
    <widget class="QPushButton" name="addComment">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>360</x>
       <y>500</y>
       <width>211</width>
       <height>41</height>
@@ -256,6 +259,7 @@ border-radius:10%;</string>
      <font>
       <family>Comic Sans MS</family>
       <pointsize>12</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -278,7 +282,8 @@ border-radius:10%</string>
     <property name="font">
      <font>
       <family>Comic Sans MS</family>
-      <pointsize>9</pointsize>
+      <pointsize>11</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -364,8 +369,8 @@ border-radius:10%</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>26</height>
+     <width>733</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

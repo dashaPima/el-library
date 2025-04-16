@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
-    <height>529</height>
+    <width>344</width>
+    <height>449</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>40</x>
       <y>10</y>
       <width>271</width>
       <height>41</height>
@@ -31,7 +31,6 @@
      <font>
       <family>Comic Sans MS</family>
       <pointsize>16</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -45,8 +44,8 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>98</x>
-      <y>160</y>
+      <x>28</x>
+      <y>110</y>
       <width>81</width>
       <height>21</height>
      </rect>
@@ -64,10 +63,10 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>230</y>
+      <x>30</x>
+      <y>180</y>
       <width>91</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -83,8 +82,8 @@
    <widget class="QTextEdit" name="inputEmail">
     <property name="geometry">
      <rect>
-      <x>98</x>
-      <y>190</y>
+      <x>28</x>
+      <y>140</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -92,7 +91,7 @@
     <property name="font">
      <font>
       <family>Comic Sans MS</family>
-      <pointsize>9</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -103,8 +102,8 @@ border-radius:10%</string>
    <widget class="QPushButton" name="btnRegistrate">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>330</y>
+      <x>30</x>
+      <y>290</y>
       <width>271</width>
       <height>51</height>
      </rect>
@@ -131,10 +130,10 @@ border-radius:10%
    <widget class="QPushButton" name="btnToLogInPage">
     <property name="geometry">
      <rect>
-      <x>102</x>
-      <y>410</y>
+      <x>32</x>
+      <y>360</y>
       <width>271</width>
-      <height>28</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -156,8 +155,8 @@ border-radius:10%
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>80</y>
+      <x>110</x>
+      <y>70</y>
       <width>171</width>
       <height>31</height>
      </rect>
@@ -166,7 +165,6 @@ border-radius:10%
      <font>
       <family>Comic Sans MS</family>
       <pointsize>14</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -177,11 +175,16 @@ border-radius:10%
    <widget class="QLineEdit" name="inputPassword">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>270</y>
+      <x>30</x>
+      <y>230</y>
       <width>271</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(235, 235, 235);
@@ -194,8 +197,8 @@ border-radius:10%</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>465</width>
-     <height>26</height>
+     <width>344</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
