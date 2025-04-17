@@ -7,14 +7,15 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtPdfWidgets import QPdfView
 
 
 class Ui_BookWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(733, 600)
-        MainWindow.setStyleSheet("background-color: rgb(255, 240, 234);")
-        self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
+    def setupUi(self, BookWindow):
+        BookWindow.setObjectName("BookWindow")
+        BookWindow.resize(733, 600)
+        BookWindow.setStyleSheet("background-color: rgb(255, 240, 234);")
+        self.centralwidget = QtWidgets.QWidget(parent=BookWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label_3 = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(30, 10, 131, 61))
@@ -36,7 +37,7 @@ class Ui_BookWindow(object):
 "color:white;")
         self.btnExit.setObjectName("btnExit")
         self.addToFavorite = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.addToFavorite.setGeometry(QtCore.QRect(220, 500, 131, 41))
+        self.addToFavorite.setGeometry(QtCore.QRect(360, 440, 131, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -99,8 +100,8 @@ class Ui_BookWindow(object):
         self.addComment.setStyleSheet("background-color: rgb(255, 210, 237);\n"
 "border-radius:10%;")
         self.addComment.setObjectName("addComment")
-        self.widget = QPdfView(parent=self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(19, 79, 331, 411))
+        self.widget = QPdfView(self.centralwidget)
+        self.widget.setGeometry(QtCore.QRect(9, 69, 341, 491))
         self.widget.setObjectName("widget")
         self.titleBook = QtWidgets.QTextEdit(parent=self.centralwidget)
         self.titleBook.setGeometry(QtCore.QRect(300, 20, 411, 41))
@@ -154,29 +155,28 @@ class Ui_BookWindow(object):
 "border-radius:10%")
         self.pagesBook.setPlaceholderText("")
         self.pagesBook.setObjectName("pagesBook")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
+        BookWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(parent=BookWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 733, 22))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
+        BookWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(parent=BookWindow)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        BookWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(BookWindow)
+        QtCore.QMetaObject.connectSlotsByName(BookWindow)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, BookWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_3.setText(_translate("MainWindow", "Library"))
-        self.btnExit.setText(_translate("MainWindow", "Выход"))
-        self.addToFavorite.setText(_translate("MainWindow", "В избранное"))
-        self.label.setText(_translate("MainWindow", "Название"))
-        self.label_2.setText(_translate("MainWindow", "Автор"))
-        self.label_4.setText(_translate("MainWindow", "Год издания"))
-        self.label_5.setText(_translate("MainWindow", "Жанр"))
-        self.label_6.setText(_translate("MainWindow", "Количество страниц"))
-        self.commentInput.setPlaceholderText(_translate("MainWindow", "оставьте комментарий"))
-        self.addComment.setText(_translate("MainWindow", "Отправить комментарий"))
-from PyQt6.QtPdfWidgets import QPdfView
+        BookWindow.setWindowTitle(_translate("BookWindow", "MainWindow"))
+        self.label_3.setText(_translate("BookWindow", "Library"))
+        self.btnExit.setText(_translate("BookWindow", "Выход"))
+        self.addToFavorite.setText(_translate("BookWindow", "В избранное"))
+        self.label.setText(_translate("BookWindow", "Название"))
+        self.label_2.setText(_translate("BookWindow", "Автор"))
+        self.label_4.setText(_translate("BookWindow", "Год издания"))
+        self.label_5.setText(_translate("BookWindow", "Жанр"))
+        self.label_6.setText(_translate("BookWindow", "Количество страниц"))
+        self.commentInput.setPlaceholderText(_translate("BookWindow", "оставьте комментарий"))
+        self.addComment.setText(_translate("BookWindow", "Отправить комментарий"))

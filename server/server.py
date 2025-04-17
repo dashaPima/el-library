@@ -192,11 +192,11 @@ def process_request(request):
         if book_id:
             book = db.get_book(book_id)
             if book:
-                keys = ["id", "title", "author", "year", "genre", "pages", "pdf_path"]
-                return json.dumps({"status": "ok", "book": dict(zip(keys, book))})
+                keys = ["id", "book","author", "pages","genre","year", "title"]
+                return {"status": "ok", "book": dict(zip(keys, book))}
             else:
-                return json.dumps({"status": "error", "message": "Книга не найдена"})
-        return json.dumps({"status": "error", "message": "Не указан ID книги"})
+                return {"status": "error", "message": "Книга не найдена"}
+        return {"status": "error", "message": "Не указан ID книги"}
 
 
     return {"status": "error", "message": "Неизвестное действие"}

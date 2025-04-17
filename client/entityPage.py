@@ -86,7 +86,7 @@ class Controller:
             "action": "get_book_details",
             "book_id": book_id
         })
-
+        print("Получен ответ:", response)
         if response["status"] == "ok":
             book_data = response["book"]
             self.book_window = OneBookWindow(controller=self, network_client=self.network_client)
