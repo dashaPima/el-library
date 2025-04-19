@@ -36,7 +36,7 @@ class RegistrateWindow(QtWidgets.QMainWindow):
 
     def handle_registrate(self):
         email = self.ui.inputEmail.toPlainText().strip()
-        password = self.ui.inputPassword.toPlainText().strip()
+        password = self.ui.inputPassword.text().strip()
         if not email or not password:
             QtWidgets.QMessageBox.warning(self, "Ошибка", "Введите email и пароль")
             return
@@ -62,9 +62,10 @@ class RegistrateWindow(QtWidgets.QMainWindow):
 
         if response["status"] == 'ok':
             print("Регистрация прошла успешно")
+            if "user_id" in response and self.controller:
+                self.controller.current_user_id = response["user_id"]
             QtWidgets.QMessageBox.information(self, "Успех", response.get("message"))
-            self.new_window = UserWindow(controller=self.controller, network_client=self.network_client)
-            self.new_window.show()
+            self.controller.user_window.show()
             self.close()
         else:
             print("Ошибка регистрации:", response.get("message"))

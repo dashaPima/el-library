@@ -98,6 +98,9 @@ class LogInWindow(QtWidgets.QMainWindow):
             return
 
         if response.get("status") == "ok":
+            user_id = response.get("user_id")
+            if user_id is not None and self.controller:
+                self.controller.current_user_id = user_id
             account_type = response.get("account_type", "")
             # Используем задержку, чтобы дать время GUI обработать текущий метод
             QTimer.singleShot(100, lambda: self.open_role_window(account_type))

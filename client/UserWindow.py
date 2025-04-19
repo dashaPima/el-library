@@ -18,6 +18,8 @@ class UserWindow(QtWidgets.QMainWindow):
         self.ui.btnWatchAllBooks.clicked.connect(self.load_books)
         self.ui.FindBook.clicked.connect(self.find_book)
         self.ui.FilterSearch.clicked.connect(self.handle_filter)
+        self.ui.btnHistory.clicked.connect(self.load_history)
+        self.ui.btnSelectedBooks.clicked.connect(self.load_favorites)
         # Подключаем кнопку "Выход"
         self.ui.btnExit.clicked.connect(self.handle_exit)
         self.load_books()
@@ -45,6 +47,21 @@ class UserWindow(QtWidgets.QMainWindow):
         self.ui.tableView.setModel(model)
         self.ui.tableView.resizeColumnsToContents()
 
+    def populate_table_history(self,history):
+        model = QtGui.QStandardItemModel()
+        # Добавляем колонку для даты
+        model.setHorizontalHeaderLabels(["ID", "Название", "Автор", "Дата просмотра"])
+        for rec in history:
+            full = rec.get("view_date", "")
+            short = full.rsplit(":", 1)[0] if full else ""
+            id_item    = QtGui.QStandardItem(str(rec.get("id", "")))
+            title_item = QtGui.QStandardItem(rec.get("title", ""))
+            author_item= QtGui.QStandardItem(rec.get("author", ""))
+            date_item  = QtGui.QStandardItem(short)
+            model.appendRow([id_item, title_item, author_item, date_item])
+        self.ui.tableView.setModel(model)
+        self.ui.tableView.resizeColumnsToContents()
+
     def book_clicked(self, index):
         selected_id = self.ui.tableView.model().index(index.row(), 0).data()
         print("Нажата книга с ID:", selected_id)
@@ -66,6 +83,32 @@ class UserWindow(QtWidgets.QMainWindow):
     def handle_filter(self):
         if self.controller:
             self.controller.show_filter(self)
+
+    def load_history(self):
+        if self.controller.current_user_id is None:
+            QtWidgets.QMessageBox.warning(self, "Ошибка", "Сначала войдите в систему")
+            return
+        resp = self.network_client.send_request({
+            "action": "get_history",
+            "user_id": self.controller.current_user_id
+        })
+        if resp.get("status") == "ok":
+            self.populate_table_history(resp["history"])
+        else:
+            QtWidgets.QMessageBox.information(self,"История","Нет записей!")
+
+    def load_favorites(self):
+        uid = self.controller.current_user_id
+        if uid is None:
+            return QtWidgets.QMessageBox.warning(self, "Ошибка", "Сначала войдите")
+        resp = self.network_client.send_request({
+            "action": "get_favorites",
+            "user_id": uid
+        })
+        if resp.get("status") == "ok":
+            self.populate_table_books(resp["books"])
+        else:
+            QtWidgets.QMessageBox.information(self, "Избранное", "Нет книг")
 
     def handle_exit(self):
         # Если контроллер передан, вызываем его метод для переключения на окно регистрации

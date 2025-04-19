@@ -66,11 +66,12 @@ def process_request(request):
     elif action == "register_user":
         email = request.get("email")
         password = request.get("password")
-        existing = db.cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+        db.cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
         if db.cursor.fetchone():
             return {"status": "error", "message": "Пользователь уже существует"}
-        db.add_user(email, password)
-        return {"status": "ok", "message": "Регистрация успешна"}
+        new_id = db.add_user(email, password)
+        logger.info(f"Пользователь {email} зарегистрирован с id={new_id}")
+        return {"status": "ok", "message": "Регистрация успешна", "user_id": new_id}
 
     elif action == "login_user":
         email = request.get("email")
@@ -81,7 +82,7 @@ def process_request(request):
             return {"status": "error", "message": "Пользователь не найден"}
         if user[2] != password:
             return {"status": "error", "message": "Неверный пароль"}
-        return {"status": "ok", "message": "Авторизация успешна"}
+        return {"status": "ok", "message": "Авторизация успешна", "user_id": user[0]}
 
     elif action == "login_admin":
         if request.get("email") == "admin@library.com" and request.get("password") == "admin123":
@@ -187,17 +188,93 @@ def process_request(request):
             logger.error(f"Ошибка при добавлении книги: {e}")
             return {"status": "error", "message": "Ошибка добавления книги"}
 
+    elif action == "add_history":
+        user_id = request.get("user_id")
+        book_id = request.get("book_id")
+        if not user_id or not book_id:
+            return {"status": "error", "message": "Не указан user_id или book_id"}
+        try:
+            db.add_history(int(user_id), int(book_id))
+            logger.info(f"История: пользователь {user_id} открыл книгу {book_id}")
+            return {"status": "ok"}
+        except Exception as e:
+            logger.error(f"Ошибка добавления истории: {e}")
+            return {"status": "error", "message": "Ошибка записи истории"}
+
     elif action == "get_book_details":
         book_id = request.get("book_id")
+        user_id = request.get("user_id")
         if book_id:
             book = db.get_book(book_id)
             if book:
+                if user_id:
+                    db.add_history(int(user_id),int(book_id))
                 keys = ["id", "book","author", "pages","genre","year", "title"]
                 return {"status": "ok", "book": dict(zip(keys, book))}
             else:
                 return {"status": "error", "message": "Книга не найдена"}
         return {"status": "error", "message": "Не указан ID книги"}
 
+    elif action == "get_history":
+        user_id = request.get("user_id")
+        if not user_id:
+            return {"status": "error", "message": "Не указан user_id"}
+        rows = db.get_user_history(int(user_id))
+        formatted = [
+            {
+                "id": row[0],
+                "title": row[6],
+                "author": row[2],
+                "pages": row[3],
+                "genre": row[4],
+                "year": row[5],
+                "view_date": row[7]
+            }
+            for row in rows
+        ]
+        return {"status": "ok", "history": formatted}
+
+    elif action == "add_favorite":
+        user_id = request.get("user_id")
+        book_id = request.get("book_id")
+        if not all([user_id, book_id]):
+            return {"status": "error", "message": "Неполные данные для избранного"}
+        try:
+            db.add_favorite(int(user_id), int(book_id))
+            return {"status": "ok", "message": "Книга добавлена в избранное"}
+        except Exception as e:
+            logger.error(f"add_favorite error: {e}")
+            return {"status": "error", "message": "Не удалось добавить в избранное"}
+
+    elif action == "remove_favorite":
+        user_id = request.get("user_id")
+        book_id = request.get("book_id")
+        if not all([user_id, book_id]):
+            return {"status": "error", "message": "Неполные данные для удаления"}
+        try:
+            db.remove_favorite(int(user_id), int(book_id))
+            return {"status": "ok", "message": "Книга удалена из избранного"}
+        except Exception as e:
+            logger.error(f"remove_favorite error: {e}")
+            return {"status": "error", "message": "Не удалось удалить из избранного"}
+
+    elif action == "get_favorites":
+        user_id = request.get("user_id")
+        if not user_id:
+            return {"status": "error", "message": "Не указан user_id"}
+        rows = db.get_user_favorites(int(user_id))
+        formatted = [
+            {
+                "id": row[0],
+                "title": row[6],
+                "author": row[2],
+                "pages": row[3],
+                "genre": row[4],
+                "year": row[5]
+            }
+            for row in rows
+        ]
+        return {"status": "ok", "books": formatted}
 
     return {"status": "error", "message": "Неизвестное действие"}
 

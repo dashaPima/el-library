@@ -28,6 +28,7 @@ class Controller:
     def __init__(self):
         self.network_client = NetworkClient()
         self.network_client.connect()
+        self.current_user_id: int | None = None
         # Создаем экземпляры окон без указания родительского виджета
         self.login_window = LogInWindow(controller=self,network_client=self.network_client)
         self.registrate_window = RegistrateWindow(controller=self,network_client=self.network_client)
@@ -81,7 +82,12 @@ class Controller:
         self.add_book_window.show()
 
     def show_book_details(self, book_id):
-        # Запрашиваем данные о книге с сервера
+        if self.current_user_id is not None:
+            self.network_client.send_request({
+                "action": "add_history",
+                "user_id": self.current_user_id,
+                "book_id": book_id
+            })
         response = self.network_client.send_request({
             "action": "get_book_details",
             "book_id": book_id

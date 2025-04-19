@@ -10,6 +10,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtPdfWidgets import QPdfView
 
 
+
 class Ui_BookWindow(object):
     def setupUi(self, BookWindow):
         BookWindow.setObjectName("BookWindow")
@@ -37,7 +38,7 @@ class Ui_BookWindow(object):
 "color:white;")
         self.btnExit.setObjectName("btnExit")
         self.addToFavorite = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.addToFavorite.setGeometry(QtCore.QRect(360, 440, 131, 41))
+        self.addToFavorite.setGeometry(QtCore.QRect(360, 440, 211, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -180,3 +181,13 @@ class Ui_BookWindow(object):
         self.label_6.setText(_translate("BookWindow", "Количество страниц"))
         self.commentInput.setPlaceholderText(_translate("BookWindow", "оставьте комментарий"))
         self.addComment.setText(_translate("BookWindow", "Отправить комментарий"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    BookWindow = QtWidgets.QMainWindow()
+    ui = Ui_BookWindow()
+    ui.setupUi(BookWindow)
+    BookWindow.show()
+    sys.exit(app.exec())
