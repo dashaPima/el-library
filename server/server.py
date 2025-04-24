@@ -276,6 +276,36 @@ def process_request(request):
         ]
         return {"status": "ok", "books": formatted}
 
+    elif action == "add_comment":
+        user_id   = request.get("user_id")
+        book_id   = request.get("book_id")
+        comment   = request.get("comment", "").strip()
+        if not all([user_id, book_id, comment]):
+            return {"status": "error", "message": "Нужно user_id, book_id и текст комментария"}
+        try:
+            db.add_comment(int(user_id), int(book_id), comment)
+            logger.info(f"Комментарий добавлен: user={user_id}, book={book_id}")
+            return {"status": "ok", "message": "Комментарий отправлен"}
+        except Exception as e:
+            logger.error(f"Ошибка add_comment: {e}")
+            return {"status": "error", "message": "Не удалось добавить комментарий"}
+
+    elif action == "get_comments":
+        book_id = request.get("book_id")
+        if not book_id:
+            return {"status": "error", "message": "Не указан book_id"}
+        try:
+            rows = db.get_book_comments(int(book_id))
+            # rows — список кортежей (email, comment, comment_date)
+            formatted = [
+                {"email": email, "comment": txt, "date": date}
+                for email, txt, date in rows
+            ]
+            return {"status": "ok", "comments": formatted}
+        except Exception as e:
+            logger.error(f"Ошибка get_comments: {e}")
+            return {"status": "error", "message": "Не удалось загрузить комментарии"}
+
     return {"status": "error", "message": "Неизвестное действие"}
 
 def start_server():

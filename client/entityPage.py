@@ -9,6 +9,7 @@ from client.Filterwindow import FilterWindow
 from client.UserWindow import UserWindow
 from client.AddBookWindow import AddBookWindow
 from client.OneBookWindow import OneBookWindow
+from client.CommentsWindow import CommentsWindow
 import logging
 
 logging.basicConfig(
@@ -101,6 +102,13 @@ class Controller:
         else:
             QtWidgets.QMessageBox.warning(None, "Ошибка", "Не удалось получить данные книги.")
 
+    def show_comments(self,book_id, book_title):
+        self.comments_window = CommentsWindow(
+            controller=self,
+            network_client=self.network_client
+        )
+        self.comments_window.set_book(book_id, book_title)
+        self.comments_window.show()
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

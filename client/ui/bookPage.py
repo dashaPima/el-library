@@ -9,8 +9,6 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtPdfWidgets import QPdfView
 
-
-
 class Ui_BookWindow(object):
     def setupUi(self, BookWindow):
         BookWindow.setObjectName("BookWindow")
@@ -156,6 +154,16 @@ class Ui_BookWindow(object):
 "border-radius:10%")
         self.pagesBook.setPlaceholderText("")
         self.pagesBook.setObjectName("pagesBook")
+        self.watchComments = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.watchComments.setGeometry(QtCore.QRect(580, 440, 131, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        self.watchComments.setFont(font)
+        self.watchComments.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.watchComments.setStyleSheet("background-color: rgb(255, 210, 237);\n"
+"border-radius:10%;")
+        self.watchComments.setObjectName("watchComments")
         BookWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=BookWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 733, 22))
@@ -181,13 +189,4 @@ class Ui_BookWindow(object):
         self.label_6.setText(_translate("BookWindow", "Количество страниц"))
         self.commentInput.setPlaceholderText(_translate("BookWindow", "оставьте комментарий"))
         self.addComment.setText(_translate("BookWindow", "Отправить комментарий"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    BookWindow = QtWidgets.QMainWindow()
-    ui = Ui_BookWindow()
-    ui.setupUi(BookWindow)
-    BookWindow.show()
-    sys.exit(app.exec())
+        self.watchComments.setText(_translate("BookWindow", "Все комментарии"))

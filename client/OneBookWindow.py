@@ -19,9 +19,9 @@ class OneBookWindow(QtWidgets.QMainWindow):
         self.ui.addToFavorite.clicked.connect(self.toggle_favorite)
         self.document = QPdfDocument(self)
         self.ui.widget.setDocument(self.document)
-        # опционально: чтобы отлавливать реальные ошибки
         self.document.statusChanged.connect(self._on_pdf_status_changed)
-
+        self.ui.addComment.clicked.connect(self.handle_add_comment)
+        self.ui.watchComments.clicked.connect(self.open_comments)
         # wire exit button
         self.ui.btnExit.clicked.connect(self.close)
 
@@ -79,3 +79,23 @@ class OneBookWindow(QtWidgets.QMainWindow):
         else:
             QtWidgets.QMessageBox.warning(self, "Ошибка", resp.get("message"))
 
+    def handle_add_comment(self):
+        text = self.ui.commentInput.toPlainText().strip()
+        if not text:
+            QtWidgets.QMessageBox.warning(self, "Ошибка", "Комментарий не может быть пустым")
+            return
+        req = {
+            "action": "add_comment",
+            "user_id": self.controller.current_user_id,
+            "book_id": self.book_id,
+            "comment": text
+        }
+        resp = self.network_client.send_request(req)
+        if resp.get("status") == "ok":
+            QtWidgets.QMessageBox.information(self, "Спасибо", resp.get("message"))
+            self.ui.commentInput.clear()
+        else:
+            QtWidgets.QMessageBox.warning(self, "Ошибка", resp.get("message"))
+
+    def open_comments(self):
+        self.controller.show_comments(self.book_id, self.ui.titleBook.toPlainText())
