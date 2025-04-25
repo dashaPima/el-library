@@ -20,6 +20,7 @@ class UserWindow(QtWidgets.QMainWindow):
         self.ui.FilterSearch.clicked.connect(self.handle_filter)
         self.ui.btnHistory.clicked.connect(self.load_history)
         self.ui.btnSelectedBooks.clicked.connect(self.load_favorites)
+        self.ui.btnOpenProfile.clicked.connect(self.controller.show_profile)
         # Подключаем кнопку "Выход"
         self.ui.btnExit.clicked.connect(self.handle_exit)
         self.load_books()

@@ -89,6 +89,34 @@ def process_request(request):
             return {"status": "ok", "message": "Авторизация админа успешна", "account_type": "Администратор"}
         return {"status": "error", "message": "Неверные данные администратора"}
 
+    elif action == "get_user_profile":
+        user_id = request.get("user_id")
+        if not user_id:
+            return {"status": "error", "message": "Не указан user_id"}
+        row = db.get_user(int(user_id))
+        if not row:
+            return {"status": "error", "message": "Пользователь не найден"}
+        return {
+            "status": "ok",
+            "profile": {
+                "email": row[1],
+                "password": row[2]
+            }
+        }
+
+    elif action == "edit_user":
+        user_id = request.get("user_id")
+        email = request.get("email", "").strip()
+        password = request.get("password", "").strip()
+        if not all([user_id, email, password]):
+            return {"status": "error", "message": "Нужно user_id, email и password"}
+        try:
+            db.edit_user(int(user_id), email, password)
+            return {"status": "ok", "message": "Профиль успешно сохранён"}
+        except Exception as e:
+            logger.error("edit_user failed: %s", e)
+            return {"status": "error", "message": "Ошибка при сохранении профиля"}
+
     elif action == "find_book_by_title":
         title = request.get("title", "")
         row = db.get_book_by_title(title)

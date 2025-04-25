@@ -10,6 +10,8 @@ from client.UserWindow import UserWindow
 from client.AddBookWindow import AddBookWindow
 from client.OneBookWindow import OneBookWindow
 from client.CommentsWindow import CommentsWindow
+from client.ProfileWindow import ProfileWindow
+from client.ConnectionWindow import ConnectionWindow
 import logging
 
 logging.basicConfig(
@@ -27,21 +29,25 @@ if sys.platform == "win64":
 
 class Controller:
     def __init__(self):
-        self.network_client = NetworkClient()
-        self.network_client.connect()
+        self.network_client: NetworkClient | None = None
         self.current_user_id: int | None = None
-        # Создаем экземпляры окон без указания родительского виджета
-        self.login_window = LogInWindow(controller=self,network_client=self.network_client)
-        self.registrate_window = RegistrateWindow(controller=self,network_client=self.network_client)
 
-        self.admin_window = AdminWindow(controller=self,network_client=self.network_client)
-        self.user_window = UserWindow(controller=self,network_client=self.network_client)
+        # сначала окно подключения
+        self.connection_window = ConnectionWindow(controller=self)
+        self.connection_window.show()
 
-        # Подключаем кнопки переключения
+    def on_connected(self):
+        # инициализируем остальные окна, когда соединение ок
+        self.login_window = LogInWindow(controller=self, network_client=self.network_client)
+        self.registrate_window = RegistrateWindow(controller=self, network_client=self.network_client)
+        self.admin_window = AdminWindow(controller=self, network_client=self.network_client)
+        self.user_window = UserWindow(controller=self, network_client=self.network_client)
+
+        # связываем переходы
         self.login_window.ui.btnToRegistrationPage.clicked.connect(self.show_registration)
         self.registrate_window.ui.btnToLogInPage.clicked.connect(self.show_login)
 
-        # Показываем окно авторизации по умолчанию
+        # показываем логин
         self.show_login()
 
     def __del__(self):
@@ -52,16 +58,12 @@ class Controller:
         self.user_window.close()
 
     def show_login(self):
-        try:
-            self.registrate_window.hide()
-            if self.admin_window: self.admin_window.hide()
-            if self.user_window: self.user_window.hide()
-            self.login_window.show()
-            self.login_window.ui.inputEmail.clear()
-            self.login_window.ui.inputPassword.clear()
-            self.login_window.ui.btnToRegistrationPage.clicked.connect(self.show_registration)
-        except Exception as e:
-            print("Ошибка при переключении на окно логина:", e)
+        # спрячем все кроме логина
+        for w in (self.registrate_window, self.admin_window, self.user_window):
+            w.hide()
+        self.login_window.ui.inputEmail.clear()
+        self.login_window.ui.inputPassword.clear()
+        self.login_window.show()
 
     def show_filter(self, source):
         # source – окно, которое вызвало фильтр (AdminWindow или UserWindow)
@@ -71,12 +73,8 @@ class Controller:
         self.filter_window.show()
 
     def show_registration(self):
-        try:
-            self.login_window.close()
-            self.registrate_window.ui.btnToLogInPage.clicked.connect(self.show_login)
-            self.registrate_window.show()
-        except Exception as e:
-            print("Ошибка при переключении на окно регистрации:", e)
+        self.login_window.hide()
+        self.registrate_window.show()
 
     def show_add_book(self):
         self.add_book_window = AddBookWindow(controller=self, network_client=self.network_client)
@@ -109,6 +107,14 @@ class Controller:
         )
         self.comments_window.set_book(book_id, book_title)
         self.comments_window.show()
+
+    def show_profile(self):
+        self.profile_window = ProfileWindow(
+            controller=self,
+            network_client=self.network_client
+        )
+        self.profile_window.set_data(self.current_user_id)
+        self.profile_window.show()
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

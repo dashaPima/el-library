@@ -32,6 +32,10 @@ class LibraryDatabase:
         self.cursor.execute("SELECT * FROM users WHERE id=%s", (user_id,))
         return self.cursor.fetchone()
 
+    def edit_user(self,user_id, email, password):
+        self.cursor.execute("UPDATE users SET email=%s, password=%s WHERE id=%s", (email,password,user_id))
+        self.conn.commit()
+
     def delete_user(self, user_id):
         self.cursor.execute("DELETE FROM users WHERE id=%s", (user_id,))
         self.conn.commit()

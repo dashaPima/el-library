@@ -85,5 +85,6 @@ class NetworkClient:
 # Пример использования:
 if __name__ == '__main__':
     client = NetworkClient()
-    client.connect()
+    #client.connect()
     client.close()
+
