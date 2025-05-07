@@ -82,7 +82,6 @@ class NetworkClient:
             self.connected = False
 
 
-# Пример использования:
 if __name__ == '__main__':
     client = NetworkClient()
     #client.connect()

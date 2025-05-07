@@ -59,6 +59,9 @@ border-radius:10%</string>
      <string notr="true">background-color: rgb(255, 255, 255);
 border-radius:10%</string>
     </property>
+    <property name="text">
+     <string>9000</string>
+    </property>
     <property name="placeholderText">
      <string>9000</string>
     </property>

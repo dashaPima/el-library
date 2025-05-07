@@ -41,6 +41,17 @@ class RegistrateWindow(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.warning(self, "Ошибка", "Введите email и пароль")
             return
 
+        if len(password) < 6:
+            QtWidgets.QMessageBox.warning(self, "Ошибка", "Пароль должен быть не короче 6 символов")
+            return
+
+        if not any(ch.isdigit() for ch in password) or not any(ch.isalpha() for ch in password):
+            QtWidgets.QMessageBox.warning(
+                self, "Ошибка",
+                "Пароль должен содержать как минимум одну букву и одну цифру"
+            )
+            return
+
         request = {
                 "action": "register_user",
                 "email": email,
